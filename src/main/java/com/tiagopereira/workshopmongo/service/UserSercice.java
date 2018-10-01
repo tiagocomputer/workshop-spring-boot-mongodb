@@ -1,5 +1,6 @@
 package com.tiagopereira.workshopmongo.service;
 
+import com.tiagopereira.workshopmongo.dto.UserDTO;
 import com.tiagopereira.workshopmongo.entity.User;
 import com.tiagopereira.workshopmongo.repository.UserRepository;
 import com.tiagopereira.workshopmongo.service.exception.ObjectNotFoundExcepion;
@@ -22,5 +23,13 @@ public class UserSercice {
     public User findById(String id){
         Optional<User> user = userRepository.findById(id);
         return  user.orElseThrow(() -> new ObjectNotFoundExcepion("Objeto não encontrado"));
+    }
+
+    public User insert(User user){
+        return userRepository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDTO){
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 }
