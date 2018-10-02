@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserSercice {
+public class UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -32,6 +32,17 @@ public class UserSercice {
     public void delete(String id){
         findById(id);
         userRepository.deleteById(id);
+    }
+
+    public User update(User user){
+        User newUser = findById(user.getId());
+        updateData(newUser, user);
+        return  userRepository.save(newUser);
+    }
+
+    private void updateData(User newUser, User user) {
+        newUser.setName(user.getName());
+        newUser.setEmail(user.getEmail());
     }
 
     public User fromDTO(UserDTO userDTO){
